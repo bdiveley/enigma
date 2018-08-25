@@ -22,14 +22,21 @@ class EnigmaTest < Minitest::Test
      new_enigma = Enigma.new
      # binding.pry
      actual = new_enigma.key_rotation("12345")
-     expected = ["12","23","34","45"]
+     expected = [12, 23, 34, 45]
      assert_equal expected, actual
   end
 
   def test_if_date_rotation_returns_new_array
     new_enigma = Enigma.new
     actual = new_enigma.date_rotation(Date.today)
-    expected = ["9", "1", "2", "4"]
+    expected = [9, 1, 2, 4]
+    assert_equal expected, actual
+  end
+
+  def test_if_final_rotation_sums_key_and_date
+    new_enigma = Enigma.new
+    actual = new_enigma.final_rotation("12345", Date.today)
+    expected = [21, 24, 36, 49]
     assert_equal expected, actual
   end
 end

@@ -14,6 +14,7 @@ class Enigma
     rotate.map.with_index do |number, index|
       if index <= 3
         number += rotate[index + 1]
+        number.to_i
       end
     end.compact
   end
@@ -21,7 +22,19 @@ class Enigma
   def date_rotation(date)
     final_date = date.strftime('%d') + date.strftime('%m') + date.strftime('%y')
     last_four = (final_date.to_i ** 2).to_s[-4..-1]
-    last_four.chars
+    last_four_array = last_four.chars
+    last_four_array.map do |number|
+      number.to_i
+    end
+
+  end
+
+  def final_rotation(key, date)
+    k_rotation = key_rotation(key)
+    d_rotation = date_rotation(date)
+    [k_rotation, d_rotation].transpose.map do |number|
+        number.sum
+      end
   end
 end
 
