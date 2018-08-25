@@ -60,4 +60,12 @@ class EnigmaTest < Minitest::Test
     expected = "b5f2s6pha,72z0oobv8iz.ait"
     assert_equal expected, actual
   end
+
+  def test_no_errors_for_one_argument_for_encrypt
+    new_enigma = Enigma.new
+    actual = new_enigma.encrypt("this is so secret ..end..")
+    expected = "b5f2s6pha,72z0oobv8iz.ait"
+    assert_equal expected, actual
+  end
+
 end

@@ -37,7 +37,7 @@ class Enigma
       end
   end
 
-  def encrypt(my_message, key, date)
+  def encrypt(my_message, key=rand(10000..99999).to_s, date=Date.today)
     message_array = my_message.downcase.chars
     rotation_number = final_rotation(key, date)
 
