@@ -36,6 +36,17 @@ class Enigma
         number.sum
       end
   end
+
+  def encrypt(my_message, key, date)
+    message_array = my_message.downcase.chars
+    rotation_number = final_rotation(key, date)
+
+    message_array.map.with_index do |letter, index|
+      letter_index = @character_map.find_index(letter)
+      rotated_array = @character_map.rotate(rotation_number[index % 4])
+      rotated_array[letter_index]
+    end.join
+  end
 end
 
 # new_enigma = Enigma.new

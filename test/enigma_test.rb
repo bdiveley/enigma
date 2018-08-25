@@ -39,4 +39,25 @@ class EnigmaTest < Minitest::Test
     expected = [21, 24, 36, 49]
     assert_equal expected, actual
   end
+
+  def test_four_letter_encryption
+    new_enigma = Enigma.new
+    actual = new_enigma.encrypt("hope", "12345", Date.today)
+    expected = "2,mo"
+    assert_equal expected, actual
+  end
+
+  def test_larger_than_four_letter_encryption
+    new_enigma = Enigma.new
+    actual = new_enigma.encrypt("hopehope", "12345", Date.today)
+    expected = "2,mo2,mo"
+    assert_equal expected, actual
+  end
+
+  def test_full_msg_encryption
+    new_enigma = Enigma.new
+    actual = new_enigma.encrypt("this is so secret ..end..", "12345", Date.today)
+    expected = "b5f2s6pha,72z0oobv8iz.ait"
+    assert_equal expected, actual
+  end
 end
