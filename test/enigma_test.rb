@@ -26,4 +26,10 @@ class EnigmaTest < Minitest::Test
      assert_equal expected, actual
   end
 
+  def test_if_date_rotation_returns_new_array
+    new_enigma = Enigma.new
+    actual = new_enigma.date_rotation(Date.today)
+    expected = ["9", "1", "2", "4"]
+    assert_equal expected, actual
+  end
 end

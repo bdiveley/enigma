@@ -17,6 +17,12 @@ class Enigma
       end
     end.compact
   end
+
+  def date_rotation(date)
+    final_date = date.strftime('%d') + date.strftime('%m') + date.strftime('%y')
+    last_four = (final_date.to_i ** 2).to_s[-4..-1]
+    last_four.chars
+  end
 end
 
 # new_enigma = Enigma.new
