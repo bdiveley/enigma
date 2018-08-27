@@ -2,7 +2,7 @@ require './test/test_helper'
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/enigma'
-# require 'pry'
+require 'pry'
 
 class EnigmaTest < Minitest::Test
 
@@ -56,14 +56,14 @@ class EnigmaTest < Minitest::Test
 
   def test_full_msg_encryption
     new_enigma = Enigma.new
-    actual = new_enigma.encrypt("this is so secret ..end..", "12345", Date.today)
+    actual = new_enigma.encrypt("this is so secret ..end..", "12345", Date.new(2018,8,25))
     expected = "b5f2s6pha,72z0oobv8iz.ait"
     assert_equal expected, actual
   end
 
   def test_no_errors_for_one_argument_for_encrypt
     new_enigma = Enigma.new
-    actual = new_enigma.encrypt("this is so secret ..end..")
+    actual = new_enigma.encrypt("this is so secret ..end..", "12345", Date.new(2018,8,25))
     expected = "b5f2s6pha,72z0oobv8iz.ait"
     assert_equal expected, actual
   end
