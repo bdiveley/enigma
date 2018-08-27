@@ -1,18 +1,12 @@
-require './lib/enigma'
-
-
-file_name = ""  #do we need these?
-encrypted_file_name = ""
-
-ARGV == [file_name, encrypted_file_name]
+require './enigma'
 
   message_file = File.open(ARGV[0], "r")
-  message = message_file.read
+  message = message_file.read.chomp
 
   new_enigma = Enigma.new
   encrypted_msg = new_enigma.encrypt(message, "12345")
 
   new_file = File.open(ARGV[1], "w")
-  new_file.write(encrypted.msg)
+  new_file.write(encrypted_msg)
 
-  puts "Created #{new_file} with the key #{key} and date #{date}"
+  puts "Created #{new_file} with the key #{new_enigma.key} and date #{new_enigma.date}"
