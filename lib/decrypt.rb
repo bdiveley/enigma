@@ -3,10 +3,19 @@ require './enigma'
   message_file = File.open(ARGV[0], "r")
   message = message_file.read.chomp
 
+  year = ("20" + ARGV[3][-2..-1]).to_i
+  day = ARGV[3][0..1].to_i
+  month = ARGV[3][3].to_i
+  date = Date.new(year, month, day)
+
+# Date.new(2018,8,25)
+
   new_enigma = Enigma.new
-  encrypted_msg = new_enigma.encrypt(message, "12345")
+  decrypted_msg = new_enigma.decrypt(message, ARGV[2], date)
 
   new_file = File.open(ARGV[1], "w")
-  new_file.write(encrypted_msg)
+  new_file.write(decrypted_msg)
 
-  puts "Created #{new_file} with the key #{new_enigma.key} and date #{new_enigma.date}"
+
+
+  puts "Created #{new_file} with the key #{ARGV[2]} and date #{ARGV[3]}"
