@@ -67,6 +67,17 @@ class Enigma
     end.join
   end
 
+  def crack(encrypted_string, date=Date.today)
+
+    decrypted_string = '       '
+    known_string = "..end.."
+    key_guess = "10000"
+    until decrypted_string[-7..-1]  == known_string
+      decrypted_string = decrypt(encrypted_string, key_guess, date)
+      key_guess = (key_guess.to_i + 1).to_s
+    end
+  end
+
 end
 
 # new_enigma = Enigma.new
