@@ -4,7 +4,8 @@ require 'pry'
 class Enigma
   attr_reader :character_map,
               :key,
-              :date
+              :date,
+              :cracked_key
 
 
   def initialize
@@ -68,7 +69,6 @@ class Enigma
   end
 
   def crack(encrypted_string, date=Date.today)
-
     decrypted_string = '       '
     known_string = "..end.."
     key_guess = "10000"
@@ -76,6 +76,7 @@ class Enigma
       decrypted_string = decrypt(encrypted_string, key_guess, date)
       key_guess = (key_guess.to_i + 1).to_s
     end
+    @cracked_key = key_guess.to_i - 1
     decrypted_string
   end
 
