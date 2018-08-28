@@ -67,8 +67,16 @@ class Enigma
     end.join
   end
 
-end
+  def crack(encrypted_string, date=Date.today)
 
-# new_enigma = Enigma.new
-# binding.pry
-# new_enigma.key_rotation("12345")
+    decrypted_string = '       '
+    known_string = "..end.."
+    key_guess = "10000"
+    until decrypted_string[-7..-1]  == known_string
+      decrypted_string = decrypt(encrypted_string, key_guess, date)
+      key_guess = (key_guess.to_i + 1).to_s
+    end
+    decrypted_string
+  end
+
+end

@@ -68,25 +68,11 @@ class EnigmaTest < Minitest::Test
     assert_equal expected, actual
   end
 
-  def test_passes_encrypted_msg
+  def test_that_crack_returns_decrypted_msg
     new_enigma = Enigma.new
-    my_message = "this is so secret ..end.."
-    output = new_enigma.encrypt(my_message,
-    "12345", Date.new(2018,8,25))
-    actual = output
-    expected = "b5f2s6pha,72z0oobv8iz.ait"
-    assert_equal expected, actual
-  end
-
-  def test_encrypted_msg_is_decrypted
-    new_enigma = Enigma.new
-    my_message = "this is so secret ..end.."
-    output = new_enigma.encrypt(my_message,
-    "12345", Date.today)
-    actual = new_enigma.decrypt(output, "12345", Date.today)
+    encrypted_string = new_enigma.encrypt("this is so secret ..end..", "12345", Date.new(2018,8,25))
+    actual = new_enigma.crack(encrypted_string, Date.new(2018,8,25))
     expected = "this is so secret ..end.."
     assert_equal expected, actual
   end
-
-
 end
