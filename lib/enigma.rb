@@ -76,10 +76,7 @@ class Enigma
       decrypted_string = decrypt(encrypted_string, key_guess, date)
       key_guess = (key_guess.to_i + 1).to_s
     end
+    decrypted_string
   end
 
 end
-
-# new_enigma = Enigma.new
-# binding.pry
-# new_enigma.key_rotation("12345")
