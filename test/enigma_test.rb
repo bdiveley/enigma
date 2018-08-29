@@ -40,6 +40,14 @@ class EnigmaTest < Minitest::Test
     assert_equal expected, actual
   end
 
+  def test_character_map_rotation_encrypts
+    new_enigma = Enigma.new
+    rotation_number = new_enigma.final_rotation("12345", Date.today)
+    actual = new_enigma.character_map_rotation(["h", "o", "p", "e"], rotation_number)
+    expected = "2,mo"
+    assert_equal expected, actual
+  end
+
   def test_four_letter_encryption
     new_enigma = Enigma.new
     actual = new_enigma.encrypt("hope", "12345", Date.today)
@@ -65,6 +73,13 @@ class EnigmaTest < Minitest::Test
     new_enigma = Enigma.new
     actual = new_enigma.encrypt("this is so secret ..end..", "12345", Date.new(2018,8,25))
     expected = "b5f2s6pha,72z0oobv8iz.ait"
+    assert_equal expected, actual
+  end
+
+  def test_guess_the_key_returns_cracked_key
+    new_enigma = Enigma.new
+    actual = new_enigma.guess_the_key('       ', "..end..", "10000", "b5f2s6pha,72z0oobv8iz.ait", Date.today)
+    expected = "this is so secret ..end.."
     assert_equal expected, actual
   end
 
