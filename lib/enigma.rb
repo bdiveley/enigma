@@ -7,11 +7,11 @@ class Enigma
               :date,
               :cracked_key
 
-
   def initialize
     @character_map = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", " ", ".", ","]
     @key = key
     @date = date
+    @cracked_key = cracked_key
   end
 
   def key_rotation(key)
@@ -31,23 +31,17 @@ class Enigma
     last_four_array.map do |number|
       number.to_i
     end
-
   end
 
   def final_rotation(key, date)
     k_rotation = key_rotation(key)
     d_rotation = date_rotation(date)
     [k_rotation, d_rotation].transpose.map do |number|
-        number.sum
-      end
+      number.sum
+    end
   end
 
-  def encrypt(my_message, key=rand(10000..99999).to_s, date=Date.today)
-    @key = key
-    @date = date
-    message_array = my_message.downcase.chars
-    rotation_number = final_rotation(key, date)
-
+  def character_map_rotation(message_array, rotation_number)
     message_array.map.with_index do |letter, index|
       letter_index = @character_map.find_index(letter)
       rotated_array = @character_map.rotate(rotation_number[index % 4])
@@ -55,23 +49,24 @@ class Enigma
     end.join
   end
 
+  def encrypt(my_message, key=rand(10000..99999).to_s, date=Date.today)
+    @key = key
+    @date = date
+    message_array = my_message.downcase.chars
+    rotation_number = final_rotation(key, date)
+    character_map_rotation(message_array, rotation_number)
+  end
+
   def decrypt(output, key, date=Date.today)
     @key = key
     @date = date
     message_array = output.downcase.chars
     rotation_number = final_rotation(key, date)
-
-    message_array.map.with_index do |letter, index|
-      letter_index = @character_map.find_index(letter)
-      rotated_array = @character_map.rotate(-rotation_number[index % 4])
-      rotated_array[letter_index]
-    end.join
+    rotation_negative = rotation_number.map {|number| -number }
+    character_map_rotation(message_array, rotation_negative)
   end
 
-  def crack(encrypted_string, date=Date.today)
-    decrypted_string = '       '
-    known_string = "..end.."
-    key_guess = "10000"
+  def guess_the_key(decrypted_string, known_string, key_guess, encrypted_string, date)
     until decrypted_string[-7..-1]  == known_string
       decrypted_string = decrypt(encrypted_string, key_guess, date)
       key_guess = (key_guess.to_i + 1).to_s
@@ -80,4 +75,10 @@ class Enigma
     decrypted_string
   end
 
+  def crack(encrypted_string, date=Date.today)
+    decrypted_string = '       '
+    known_string = "..end.."
+    key_guess = "10000"
+    guess_the_key(decrypted_string, known_string, key_guess, encrypted_string, date)
+  end
 end
