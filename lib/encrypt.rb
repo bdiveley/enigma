@@ -4,7 +4,7 @@ require './lib/enigma'
   message = message_file.read.chomp
 
   new_enigma = Enigma.new
-  encrypted_msg = new_enigma.encrypt(message, "12345")
+  encrypted_msg = new_enigma.encrypt(message)
 
   new_file = File.open(ARGV[1], "w")
   new_file.write(encrypted_msg)

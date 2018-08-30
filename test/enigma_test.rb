@@ -76,6 +76,13 @@ class EnigmaTest < Minitest::Test
     assert_equal expected, actual
   end
 
+  def test_no_errors_for_decrypt
+    new_enigma = Enigma.new
+    actual = new_enigma.decrypt("b5f2s6pha,72z0oobv8iz.ait", "12345", Date.new(2018,8,25))
+    expected = "this is so secret ..end.."
+    assert_equal expected, actual
+  end
+
   def test_guess_the_key_returns_cracked_key
     new_enigma = Enigma.new
     actual = new_enigma.guess_the_key('       ', "..end..", "10000", "b5f2s6pha,72z0oobv8iz.ait", Date.today)
